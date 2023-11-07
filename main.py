@@ -6,7 +6,16 @@ from pydantic import BaseModel
 from openai import OpenAI
 
 client = OpenAI(api_key=os.environ["OPENAI_KEY"])
-app = FastAPI()
+app = FastAPI(
+    title="DnD helper API",
+    description="API for generating images for DnD helper app",
+    version="1.0.0",
+    openapi_url="/api/v1/openapi.json",
+    servers=[
+        {"url": "http://localhost:8000", "description": "Development server"},
+        {"url": "https://dnd-e63395806a9f.herokuapp.com", "description": "Production server"}
+    ],
+)
 
 
 class ImageRequest(BaseModel):
