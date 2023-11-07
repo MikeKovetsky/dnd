@@ -13,6 +13,11 @@ class ImageRequest(BaseModel):
     prompt: str
 
 
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
+
 @app.post("/generate-image/")
 async def generate_image(request: ImageRequest):
     if not request.prompt:
