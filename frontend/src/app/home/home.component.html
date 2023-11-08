@@ -16,11 +16,14 @@
                 <img src="/assets/img/gm.png" alt="Assistant Avatar" class="chat__avatar">
                 Game Master
               </div>
-              <div class="chat__message-name" *ngIf="message.role === 'user'">You</div>
+              <div class="chat__message-name" *ngIf="message.role === 'user'">Adventurer</div>
               <div *ngIf="message.type === 'text'" [innerHTML]="message.html" class="chat__message-text"></div>
               <img *ngIf="message.type === 'image'" [src]="message.text" alt="" class="chat__message-img">
               <ng-container *ngIf="message.role === 'assistant' && i === (messages.length-1)">
-                <button style="margin-top: 10px" *ngIf="!audioOn" (click)="audioOn = true">Play</button>
+                <button style="margin-top: 10px"
+                        class="button--primary button--sm"
+                        *ngIf="!audioOn"
+                        (click)="audioOn = true">Play Voice</button>
                 <audio autoplay style="margin-top: 10px" #audioPlayer controls *ngIf="audioOn">
                   <source [src]="voiceBase + message.text" type="audio/mpeg">
                 </audio>

@@ -19,7 +19,7 @@ interface PreparedMessage extends Message {
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('searchInput') searchInput!: ElementRef;
-  @ViewChild('chatContainer') private chatContainer!: ElementRef;
+  @ViewChild('chatContainer') chatContainer!: ElementRef;
 
   message = new FormControl<string>('');
   threadId!: string;
@@ -78,7 +78,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.audioOn = false;
       this.isLoading = false;
       this.scrollToBottom();
-      this.searchInput.nativeElement.scrollIntoView()
       this.messages = chat.messages.map((message) => this.formatMessage(message));
     });
   }
@@ -108,6 +107,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.message.setValue("Let's start now!");
       }
       this.isLoading = false;
+      this.scrollToBottom();
     }, () => {
       this.isLoading = false;
       this.messages.push({

@@ -142,14 +142,15 @@ $away: rgba(255, 253, 130, 0.8);
   }
 
   &__message-name {
-    font-size: 16px;
+    font-size: 19px;
     margin-bottom: 10px;
 
     .chat__avatar {
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;  // to keep the image circular
-      vertical-align: middle;  // to align it with the text
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      vertical-align: middle;
+      margin-right: 6px;
     }
   }
 
@@ -230,13 +231,6 @@ $away: rgba(255, 253, 130, 0.8);
     border-top: 1px rgb(21 11 28);
     background: rgb(21 11 28);
   }
-}
-
-.chat__avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 8px;
 }
 
 
