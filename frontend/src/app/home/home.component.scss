@@ -60,6 +60,7 @@ $away: rgba(255, 253, 130, 0.8);
   @include phones-lg {
     height: 100%;
     overflow: auto;
+    padding: 0;
   }
 }
 
@@ -71,6 +72,7 @@ $away: rgba(255, 253, 130, 0.8);
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    padding: 0;
   }
 }
 
@@ -88,7 +90,7 @@ $away: rgba(255, 253, 130, 0.8);
   @include phones-lg {
     flex-direction: column;
     height: 100%;
-    max-height: calc(100vh - 90px);
+    max-height: calc(100vh);
   }
 
   &__body {
