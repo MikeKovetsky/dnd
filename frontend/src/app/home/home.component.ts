@@ -117,11 +117,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
       }
     }
     let htmlText = message.text.replace(/\n\n/g, '<br><br>');
-    htmlText = htmlText.replace(/1\./, '<ol><li>').replace(/<\/li><br><br>Which/, '</li></ol><br><br>Which');
-    htmlText = htmlText.replace(/\d+\.\s/g, '</li><li>');
     return {
       role: message.role,
-      text: htmlText.replace(/2\./g, '<li>'),
+      text: htmlText,
       type: message.type,
     }
 

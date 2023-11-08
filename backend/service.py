@@ -6,6 +6,7 @@ from openai.types.beta.threads import ThreadMessage
 from backend.models import Message
 
 client = OpenAI(api_key=os.environ["OPENAI_KEY"])
+img_cache = {}
 
 
 def get_messages(thread_id: str) -> list[Message]:
@@ -20,7 +21,11 @@ def get_messages(thread_id: str) -> list[Message]:
 def _build_message(message: ThreadMessage, is_last_message: bool) -> Message:
     text = message.content[0].text.value
     if "IMAGE GENERATION PROMPT:" in text and is_last_message:
-        image_url = get_image(text.replace("IMAGE GENERATION PROMPT:", ""))
+        if message.id in img_cache:
+            return Message(text=img_cache[message.id], role=message.role, type="image")
+        else:
+            image_url = get_image(text.replace("IMAGE GENERATION PROMPT:", ""))
+            img_cache[message.id] = image_url
         return Message(text=image_url, role=message.role, type="image")
     else:
         return Message(text=text, role=message.role, type="text")

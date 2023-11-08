@@ -43,6 +43,14 @@ $away: rgba(255, 253, 130, 0.8);
   }
 }
 
+.bg {
+  position: fixed;
+  height: calc(100% + 20px) ;
+  bottom: -20px;
+  left: 0;
+}
+
+
 .survey {
   overflow: hidden;
   height: 100vh;
@@ -67,7 +75,7 @@ $away: rgba(255, 253, 130, 0.8);
 }
 
 .chat {
-  background: rgb(0 0 0 / 20%);
+  background: rgb(0 0 0 / 80%);
   width: 100%;
   max-width: 1000px;
   height: calc(100vh - 40px);
@@ -105,7 +113,7 @@ $away: rgba(255, 253, 130, 0.8);
 
   &__message {
     max-width: 400px;
-    background: rgb(193 113 57);
+    background: rgb(21, 11, 28, 0.7);
     padding: 12px 14px;
     position: relative;
     height: auto;
@@ -125,7 +133,7 @@ $away: rgba(255, 253, 130, 0.8);
       height: 0;
       border-top: 10px solid transparent;
       border-bottom: 10px solid transparent;
-      border-left: 10px solid rgb(193 113 57);
+      border-left: 10px solid rgb(25 39 61 / 60%);
       top: 10px;
       right: -10px;
     }
@@ -144,7 +152,7 @@ $away: rgba(255, 253, 130, 0.8);
   }
 
   &__message-text {
-    font-size: 14px;
+    font-size: 15cqipx;
   }
 
   &__message-img {
@@ -157,7 +165,7 @@ $away: rgba(255, 253, 130, 0.8);
     &:after {
       right: -10px;
       top: 10px;
-      border-left: 10px solid rgb(193 113 57);
+      border-left: 10px solid rgb(21, 11, 28, 0.7);
     }
   }
 
@@ -167,7 +175,7 @@ $away: rgba(255, 253, 130, 0.8);
     &:after {
       left: -10px;
       top: 10px;
-      border-right: 10px solid rgb(193 113 57);
+      border-right: 10px solid rgb(21, 11, 28, 0.7);
       border-left: 0;
     }
   }
@@ -217,8 +225,8 @@ $away: rgba(255, 253, 130, 0.8);
   }
 
   &__input-wrapper {
-    border-top: 1px solid rgb(186 166 143);
-    background: rgb(156 124 99);
+    border-top: 1px rgb(21 11 28);
+    background: rgb(21 11 28);
   }
 }
 
