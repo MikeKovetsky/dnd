@@ -1,6 +1,7 @@
 import os
 
 from openai import OpenAI
+from openai._base_client import HttpxBinaryResponseContent
 from openai.types.beta.threads import ThreadMessage
 
 from backend.models import Message
@@ -34,6 +35,14 @@ def _build_message(message: ThreadMessage, is_last_message: bool) -> Message:
 def create_thread() -> str:
     thread = client.beta.threads.create()
     return thread.id
+
+
+def get_voice(text: str) -> HttpxBinaryResponseContent:
+    return client.audio.speech.create(
+        model="tts-1",
+        voice="fable",
+        input=text
+    )
 
 
 def reply(thread_id: str, text: str) -> None:

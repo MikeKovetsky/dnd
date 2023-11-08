@@ -5,6 +5,11 @@ import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { Message } from "../../openapi/dnd/models/message";
 import { NewMessageRequest } from "../../openapi/dnd/models/new-message-request";
 import { ApiService } from "../../openapi/dnd/services/api.service";
+import { environment } from "../../environments/environment";
+
+interface PreparedMessage extends Message {
+  html?: string;
+}
 
 @UntilDestroy()
 @Component({
@@ -19,6 +24,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   message = new FormControl<string>('');
   threadId!: string;
   isLoading = true;
+  voiceBase = environment.rootApiUrl + '/voice?text=';
+  audioOn = false;
+
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -26,7 +34,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
 
-  messages: Message[] = [];
+  messages: PreparedMessage[] = [];
 
   ngOnInit() {
     const raw = this.route.snapshot.queryParamMap.get('threadId');
@@ -67,12 +75,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.api.replyChatChatPut({body}).pipe(
       untilDestroyed(this),
     ).subscribe((chat) => {
+      this.audioOn = false;
       this.isLoading = false;
       this.scrollToBottom();
       this.searchInput.nativeElement.scrollIntoView()
       this.messages = chat.messages.map((message) => this.formatMessage(message));
     });
   }
+
 
   private createChat() {
     this.api.createChatChatPost({}).pipe(
@@ -108,7 +118,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
   }
 
-  private formatMessage(message: Message): Message {
+  private formatMessage(message: Message): PreparedMessage {
     if (message.type === 'image') {
       return {
         role: message.role,
@@ -119,7 +129,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     let htmlText = message.text.replace(/\n\n/g, '<br><br>');
     return {
       role: message.role,
-      text: htmlText,
+      text: message.text,
+      html: htmlText,
       type: message.type,
     }
 

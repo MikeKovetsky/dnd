@@ -1,8 +1,11 @@
-from fastapi import FastAPI, HTTPException
+import io
+
+from fastapi import FastAPI, HTTPException, Query
 from starlette.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 
 from backend.models import ChatResponse, NewMessageRequest, ImageResponse, ImageRequest, NewChatResponse
-from backend.service import get_messages, get_image, reply, create_thread
+from backend.service import get_messages, get_image, reply, create_thread, get_voice
 
 app = FastAPI(
     title="DnD helper API",
@@ -52,6 +55,13 @@ async def create_chat():
 async def reply_chat(request: NewMessageRequest):
     reply(request.thread_id, request.message.text)
     return ChatResponse(messages=get_messages(request.thread_id))
+
+
+@app.get("/voice")
+async def voice(text: str = Query()):
+    vo = get_voice(text)
+    audio_content = vo.content
+    return StreamingResponse(io.BytesIO(audio_content), media_type="audio/mpeg")
 
 
 if __name__ == "__main__":

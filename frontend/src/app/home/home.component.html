@@ -10,15 +10,21 @@
 
       <div class="chat__body">
         <div class="chat__messages" #chatContainer>
-          <ng-container *ngFor="let message of messages">
+          <ng-container *ngFor="let message of messages; let i = index;">
             <div class="chat__message chat__message--{{message.role}}">
               <div class="chat__message-name" *ngIf="message.role === 'assistant'">
                 <img src="/assets/img/gm.png" alt="Assistant Avatar" class="chat__avatar">
                 Game Master
               </div>
               <div class="chat__message-name" *ngIf="message.role === 'user'">You</div>
-              <div *ngIf="message.type === 'text'" [innerHTML]="message.text" class="chat__message-text"></div>
+              <div *ngIf="message.type === 'text'" [innerHTML]="message.html" class="chat__message-text"></div>
               <img *ngIf="message.type === 'image'" [src]="message.text" alt="" class="chat__message-img">
+              <ng-container *ngIf="message.role === 'assistant' && i === (messages.length-1)">
+                <button style="margin-top: 10px" *ngIf="!audioOn" (click)="audioOn = true">Play</button>
+                <audio autoplay style="margin-top: 10px" #audioPlayer controls *ngIf="audioOn">
+                  <source [src]="voiceBase + message.text" type="audio/mpeg">
+                </audio>
+              </ng-container>
             </div>
           </ng-container>
           <div class="chat__message chat__message--loading chat__message--assistant" *ngIf="isLoading">

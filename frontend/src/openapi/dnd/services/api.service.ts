@@ -22,6 +22,8 @@ import { replyChatChatPut } from '../fn/operations/reply-chat-chat-put';
 import { ReplyChatChatPut$Params } from '../fn/operations/reply-chat-chat-put';
 import { rootGet } from '../fn/operations/root-get';
 import { RootGet$Params } from '../fn/operations/root-get';
+import { voiceVoiceGet } from '../fn/operations/voice-voice-get';
+import { VoiceVoiceGet$Params } from '../fn/operations/voice-voice-get';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService extends BaseService {
@@ -191,6 +193,39 @@ export class ApiService extends BaseService {
   createChatChatPost(params?: CreateChatChatPost$Params, context?: HttpContext): Observable<NewChatResponse> {
     return this.createChatChatPost$Response(params, context).pipe(
       map((r: StrictHttpResponse<NewChatResponse>): NewChatResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `voiceVoiceGet()` */
+  static readonly VoiceVoiceGetPath = '/voice';
+
+  /**
+   * Voice.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `voiceVoiceGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  voiceVoiceGet$Response(params: VoiceVoiceGet$Params, context?: HttpContext): Observable<StrictHttpResponse<any>> {
+    return voiceVoiceGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Voice.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `voiceVoiceGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  voiceVoiceGet(params: VoiceVoiceGet$Params, context?: HttpContext): Observable<any> {
+    return this.voiceVoiceGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<any>): any => r.body)
     );
   }
 
