@@ -1,0 +1,41 @@
+<div class="page survey">
+  <div class="container">
+    <div class="chat">
+
+
+      <div class="chat__body">
+        <div class="chat__messages" #chatContainer>
+          <ng-container *ngFor="let message of messages">
+            <div class="chat__message chat__message--{{message.role}}">
+              <div class="chat__message-name" *ngIf="message.role === 'assistant'">
+                <img src="/assets/img/gm.png" alt="Assistant Avatar" class="chat__avatar">
+                Game Master
+              </div>
+              <div class="chat__message-name" *ngIf="message.role === 'user'">You</div>
+              <div *ngIf="message.type === 'text'" [innerHTML]="message.text" class="chat__message-text"></div>
+              <img *ngIf="message.type === 'image'" [src]="message.text" alt="" class="chat__message-img">
+            </div>
+          </ng-container>
+          <div class="chat__message chat__message--loading chat__message--assistant" *ngIf="isLoading">
+            <div class="chat__message-name">Game Master</div>
+            <div class="chat__message-text">Typing . . .</div>
+          </div>
+        </div>
+        <form (ngSubmit)="sendMessage(message.value)">
+          <div class="fancy-input__wrapper chat__input-wrapper"
+               [class.fancy-input__wrapper--active]="!!message.value">
+            <input [formControl]="message"
+                   class="fancy-input"
+                   #searchInput
+                   type="text"
+                   placeholder="Enter your message">
+            <button type="submit" class="fancy-input__button">
+              <img *ngIf="!isLoading" class="fancy-input__icon" src="/assets/img/send.svg" style="transform: rotate(45deg);" alt="">
+              <img *ngIf="isLoading" class="fancy-input__spinner" alt="" src="/assets/img/spinner.svg">
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

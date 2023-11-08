@@ -1,0 +1,49 @@
+$mat-brand: (
+        50 : #809ef2,
+        100 : #7996e6,
+        200 : rgb(112, 138, 211),
+        300 : #5f75b1,
+        400 : #465684,
+        500 : #364365,
+        600 : #333f5f,
+        700 : #232c42,
+        800 : #171c2b,
+        900 : #111520,
+        A100: #3f66d1,
+        A200: #243f8f,
+        contrast: (
+                50 : #000000,
+                100 : #000000,
+                200 : #000000,
+                300 : #ffffff,
+                400 : #ffffff,
+                500 : #ffffff,
+                600 : #ffffff,
+                700 : #ffffff,
+                800 : #ffffff,
+                900 : #ffffff,
+                A100 : #ffffff,
+                A200 : #ffffff,
+                A400 : #ffffff,
+                A700 : #ffffff,
+        )
+);
+
+$mat-error: (
+        A100 : #bb3032,
+        A200 : #972728,
+);
+
+$mat-warning: (
+        A100 : #e99e27,
+        A200 : #cd963f,
+);
+
+$mat-start: (
+        A100 : #149a59,
+        A200 : #27af6d,
+        A300 : #3fd88e,
+        A400 : #4fe19a,
+);
+
+$background-color: linear-gradient(120deg, rgb(16, 26, 74), rgb(177 47 119));

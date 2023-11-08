@@ -1,0 +1,256 @@
+@import "../../assets/styles/devices.scss";
+@import "../../assets/styles/theme/pallete";
+
+$primary: rgb(16 26 74);
+$secondary: rgb(143 79 110);
+
+$active: rgba(23, 190, 187, 0.8);
+$busy: rgba(252, 100, 113, 0.8);
+$away: rgba(255, 253, 130, 0.8);
+
+@keyframes opacityChange {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+// Triangle Mixin
+@mixin triangle($color, $size, $direction) {
+  width: 0;
+  height: 0;
+  @if $direction == "up" {
+    border-right: ($size + px) solid transparent;
+    border-left: ($size + px) solid transparent;
+    border-bottom: ($size + px) solid $color;
+  }
+  @if $direction == "down" {
+    border-right: ($size + px) solid transparent;
+    border-left: ($size + px) solid transparent;
+    border-top: ($size + px) solid $color;
+  }
+  @if $direction == "right" {
+    border-top: ($size + px) solid transparent;
+    border-bottom: ($size + px) solid transparent;
+    border-left: ($size + px) solid $color;
+  }
+  @if $direction == "left" {
+    border-top: ($size + px) solid transparent;
+    border-bottom: ($size + px) solid transparent;
+    border-right: ($size + px) solid $color;
+  }
+}
+
+.survey {
+  overflow: hidden;
+  height: 100vh;
+  max-width: 100%;
+  padding: 0;
+
+  @include phones-lg {
+    height: 100%;
+    overflow: auto;
+  }
+}
+
+.container {
+  padding: 20px;
+
+  @include phones-lg {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+}
+
+.chat {
+  background: rgb(0 0 0 / 20%);
+  width: 100%;
+  max-width: 1000px;
+  height: calc(100vh - 40px);
+  border-radius: 2px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  box-shadow: 2px 2px 100px 3px rgba(0, 0, 0, 0.5);
+
+  @include phones-lg {
+    flex-direction: column;
+    height: 100%;
+    max-height: calc(100vh - 90px);
+  }
+
+  &__body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include phones-lg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__messages {
+    padding: 20px;
+    display: flex;
+    max-height: 100%;
+    overflow: auto;
+    flex-direction: column;
+  }
+
+  &__message {
+    max-width: 400px;
+    background: rgb(193 113 57);
+    padding: 12px 14px;
+    position: relative;
+    height: auto;
+    width: 100%;
+    border-radius: 2px;
+    margin-bottom: 16px;
+
+    @include phones-lg {
+      width: 90%;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      margin: 0;
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 10px solid rgb(193 113 57);
+      top: 10px;
+      right: -10px;
+    }
+  }
+
+  &__message-name {
+    font-size: 16px;
+    margin-bottom: 10px;
+
+    .chat__avatar {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;  // to keep the image circular
+      vertical-align: middle;  // to align it with the text
+    }
+  }
+
+  &__message-text {
+    font-size: 14px;
+  }
+
+  &__message-img {
+    max-width: 100%;
+  }
+
+  &__message--assistant {
+    align-self: flex-start;
+
+    &:after {
+      right: -10px;
+      top: 10px;
+      border-left: 10px solid rgb(193 113 57);
+    }
+  }
+
+  &__message--user {
+    align-self: flex-end;
+
+    &:after {
+      left: -10px;
+      top: 10px;
+      border-right: 10px solid rgb(193 113 57);
+      border-left: 0;
+    }
+  }
+
+  &__message--loading {
+    animation: opacityChange 1.4s infinite;
+  }
+
+  &__description {
+    background: rgba(255, 255, 255, 0.1);
+    width: 30%;
+    height: 100%;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+
+    @include phones-lg {
+      width: 100%;
+      display: none;
+    }
+  }
+
+  &__title {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 20px;
+    padding: 10px;
+    margin: 0;
+    font-weight: 300;
+    text-align: center;
+  }
+
+  &__description-outer {
+    overflow: auto;
+    max-height: calc(100vh - 200px);
+
+    @include phones-lg {
+      max-height: 160px;
+    }
+  }
+
+  &__description-text {
+    padding: 12px 16px;
+
+    @include phones-lg {
+      max-height: 300px;
+    }
+  }
+
+  &__input-wrapper {
+    border-top: 1px solid rgb(186 166 143);
+    background: rgb(156 124 99);
+  }
+}
+
+.chat__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+
+// Placeholder Styling
+::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+:-moz-placeholder {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.h1 {
+  margin-bottom: 20px;
+
+  @include phones-lg {
+    font-size: 24px;
+  }
+}

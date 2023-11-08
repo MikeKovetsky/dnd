@@ -1,0 +1,17 @@
+@import "./devices";
+
+.container {
+  padding: 0 20px;
+  max-width: 1000px;
+  margin: auto;
+
+  @include phones-lg {
+    padding: 0;
+  }
+}
+
+.page {
+  @extend .container;
+  padding-top: 20px;
+  min-height: calc(100vh - 64px);
+}

@@ -1,0 +1,19 @@
+@import "./assets/styles/reset";
+@import "./assets/styles/page";
+@import "./assets/styles/devices";
+@import "./assets/styles/buttons";
+@import "./assets/styles/typography";
+@import "./assets/styles/inputs";
+@import "./assets/styles/textarea";
+@import "./assets/styles/links";
+@import "./assets/styles/scrollbar";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: url("/assets/img/bg.jpeg");
+  color: white;
+  line-height: 1.3;
+}

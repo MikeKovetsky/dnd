@@ -1,0 +1,10 @@
+@import "./theme/pallete";
+
+a {
+  color: white;
+  text-decoration: underline;
+
+  &:hover {
+    color: map_get($mat-brand, 50)
+  }
+}

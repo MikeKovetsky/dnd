@@ -1,0 +1,121 @@
+@import "./theme/pallete";
+
+.button {
+  appearance: none;
+  background: linear-gradient(65deg, #c4cdd6 0, #87929c 100%);
+  display: inline-flex;
+  font-size: 14px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  justify-content: center;
+  padding: 13px 24px;
+  height: 40px;
+  text-align: center;
+  white-space: nowrap;
+
+  &:hover {
+    color: #fff;
+  }
+
+  &--primary {
+    @extend .button;
+    background: linear-gradient(65deg, map_get($mat-brand, A100) 0, map_get($mat-brand, A200) 100%);
+
+    &:hover {
+      background: linear-gradient(65deg, darken(map_get($mat-brand, A100), 3) 0, darken(map_get($mat-brand, A200), 3) 100%);
+    }
+
+    &:active {
+      background: linear-gradient(65deg, darken(map_get($mat-brand, A100), 6) 0, darken(map_get($mat-brand, A200), 6) 100%);
+    }
+  }
+
+  &--error {
+    @extend .button;
+    background: linear-gradient(65deg, map_get($mat-error, A100) 0, map_get($mat-error, A200) 100%);
+
+    &:hover {
+      background: linear-gradient(65deg, darken(map_get($mat-error, A100), 3) 0, darken(map_get($mat-error, A200), 3) 100%);
+    }
+
+    &:active {
+      background: linear-gradient(65deg, darken(map_get($mat-error, A100), 6) 0, darken(map_get($mat-error, A200), 6) 100%);
+    }
+  }
+
+  &--warning {
+    @extend .button;
+    background: linear-gradient(65deg, map_get($mat-warning, A100) 0, map_get($mat-warning, A200) 100%);
+
+    &:hover {
+      background: linear-gradient(65deg, darken(map_get($mat-warning, A100), 3) 0, darken(map_get($mat-warning, A200), 3) 100%);
+    }
+
+    &:active {
+      background: linear-gradient(65deg, darken(map_get($mat-warning, A100), 6) 0, darken(map_get($mat-warning, A200), 6) 100%);
+    }
+  }
+
+  &--start {
+    @extend .button;
+    background: linear-gradient(65deg, map_get($mat-start, A100) 0, map_get($mat-start, A200) 100%);
+
+    &:hover {
+      background: linear-gradient(65deg, darken(map_get($mat-start, A100), 3) 0, darken(map_get($mat-start, A200), 3) 100%);
+    }
+
+    &:active {
+      background: linear-gradient(65deg, darken(map_get($mat-start, A100), 6) 0, darken(map_get($mat-start, A200), 6) 100%);
+    }
+  }
+
+  &--loading {
+    pointer-events: none;
+    background: linear-gradient(65deg, #c4cdd6 0, #87929c 100%);
+  }
+
+  &--full {
+    width: 100%;
+  }
+
+  &--sm {
+    height: 28px;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  &--ssm {
+    height: 20px;
+    padding: 2px 6px;
+    font-size: 11px;
+  }
+
+  &--icon {
+    background: transparent;
+    padding: 0;
+  }
+
+  &--round {
+    border-radius: 50%;
+  }
+
+  &--floating {
+    position: fixed !important;
+    bottom: 12px;
+    right: 20px;
+    z-index: 2;
+
+    &:nth-of-type(2) {
+      bottom: 80px;
+    }
+  }
+
+  mat-icon {
+    font-size: 17px;
+    margin-right: 2px;
+  }
+}

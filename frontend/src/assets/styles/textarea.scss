@@ -1,0 +1,17 @@
+@import "./theme/pallete";
+@import "./inputs";
+
+.textarea {
+  @extend .input-base;
+  min-height: 100px;
+  box-sizing: border-box;
+  font-size: 14px;
+
+  &__error {
+    @extend .input-base__error;
+  }
+  &--full {
+    width: 100%;
+    max-width: 100%;
+  }
+}
