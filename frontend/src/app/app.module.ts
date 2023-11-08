@@ -7,6 +7,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { ApiConfiguration } from "../openapi/dnd/api-configuration";
 import { AppRoutingModule } from "./app-routing.module";
 import { HomeComponent } from "./home/home.component";
+import { environment } from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { HomeComponent } from "./home/home.component";
     AppRoutingModule,
   ],
   providers: [
-    {provide: ApiConfiguration, useValue: {rootUrl: "http://localhost:8000"}},
+    {provide: ApiConfiguration, useValue: {rootUrl: environment.rootApiUrl}},
   ],
   bootstrap: [AppComponent]
 })
