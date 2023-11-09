@@ -3,6 +3,7 @@ import os
 from openai import OpenAI
 from openai._base_client import HttpxBinaryResponseContent
 from openai.types.beta.threads import ThreadMessage
+from retrying import retry
 
 from backend.models import Message
 
@@ -10,6 +11,7 @@ client = OpenAI(api_key=os.environ["OPENAI_KEY"])
 img_cache = {}
 
 
+@retry(stop_max_attempt_number=5)
 def get_messages(thread_id: str) -> list[Message]:
     messages = client.beta.threads.messages.list(thread_id=thread_id)
     prepared_messages = []
@@ -32,11 +34,13 @@ def _build_message(message: ThreadMessage, is_last_message: bool) -> Message:
         return Message(text=text, role=message.role, type="text")
 
 
+@retry(stop_max_attempt_number=5)
 def create_thread() -> str:
     thread = client.beta.threads.create()
     return thread.id
 
 
+@retry(stop_max_attempt_number=5)
 def get_voice(text: str) -> HttpxBinaryResponseContent:
     return client.audio.speech.create(
         model="tts-1",
@@ -45,6 +49,7 @@ def get_voice(text: str) -> HttpxBinaryResponseContent:
     )
 
 
+@retry(stop_max_attempt_number=5)
 def reply(thread_id: str, text: str) -> None:
     client.beta.threads.messages.create(
         thread_id=thread_id,
@@ -63,6 +68,7 @@ def reply(thread_id: str, text: str) -> None:
                 break
 
 
+@retry(stop_max_attempt_number=5)
 def get_image(prompt: str) -> str:
     response = client.images.generate(
         model="dall-e-3",
