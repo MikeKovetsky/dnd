@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  rootApiUrl: 'http://localhost:8000',
-  // rootApiUrl: 'https://ux-mate-api.portal.ai',
+  // rootApiUrl: 'http://localhost:8000',
+  rootApiUrl: 'https://mydragons-2b9e7715749a.herokuapp.com',
 };
 
 /*

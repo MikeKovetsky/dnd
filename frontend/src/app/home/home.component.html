@@ -2,6 +2,18 @@
 <!--  <source src="/assets/video/wow.mp4" type="video/mp4">-->
 <!--  Your browser does not support the video tag.-->
 <!--</video>-->
+<audio autoplay #audioPlayer *ngIf="playBgMusic" (ended)="playNextTrack()">
+  <source [src]="playlist[currentTrackIndex]" type="audio/mpeg">
+</audio>
+
+<button class="button--primary button--sm music" (click)="playBgMusic = !playBgMusic">
+  <span *ngIf="playBgMusic">Music Off</span>
+  <span *ngIf="!playBgMusic">Music On</span>
+</button>
+
+<button *ngIf="playBgMusic" class="button--primary button--sm music-next" (click)="playNextTrack()">
+  <span>Next</span>
+</button>
 
 <div class="page survey">
   <div class="container">
@@ -19,19 +31,32 @@
               <div class="chat__message-name" *ngIf="message.role === 'user'">Adventurer</div>
               <div *ngIf="message.type === 'text'" [innerHTML]="message.html" class="chat__message-text"></div>
               <img *ngIf="message.type === 'image'" [src]="message.text" alt="" class="chat__message-img">
-              <ng-container *ngIf="message.role === 'assistant' && i === (messages.length-1)">
+              <ng-container
+                *ngIf="message.role === 'assistant' && message.type === 'text' && i === (messages.length-1)">
                 <button style="margin-top: 10px"
                         class="button--primary button--sm"
+                        [class.button--loading]="audioLoading"
                         *ngIf="!audioOn"
-                        (click)="audioOn = true">Play Voice</button>
-                <audio autoplay style="margin-top: 10px" #audioPlayer controls *ngIf="audioOn">
-                  <source [src]="voiceBase + message.text" type="audio/mpeg">
-                </audio>
+                        (click)="audioOn = true">Play Voice
+                </button>
+                <div [class.audio--loading]="audioLoading">
+                  <audio autoplay style="margin-top: 10px"
+                         (loadstart)="audioLoading = true"
+                         (loadeddata)="audioLoading = false"
+                         controls
+                         *ngIf="audioOn">
+                    <source [src]="voiceBase + message.text" type="audio/mpeg">
+                  </audio>
+                  <div *ngIf="audioLoading">Audio is loading ...</div>
+                </div>
               </ng-container>
             </div>
           </ng-container>
           <div class="chat__message chat__message--loading chat__message--assistant" *ngIf="isLoading">
-            <div class="chat__message-name">Game Master</div>
+            <div class="chat__message-name">
+              <img src="/assets/img/gm.png" alt="Assistant Avatar" class="chat__avatar">
+              Game Master
+            </div>
             <div class="chat__message-text">Typing . . .</div>
           </div>
         </div>
@@ -44,7 +69,8 @@
                    type="text"
                    placeholder="Enter your message">
             <button type="submit" class="fancy-input__button">
-              <img *ngIf="!isLoading" class="fancy-input__icon" src="/assets/img/send.svg" style="transform: rotate(45deg);" alt="">
+              <img *ngIf="!isLoading" class="fancy-input__icon" src="/assets/img/send.svg"
+                   style="transform: rotate(45deg);" alt="">
               <img *ngIf="isLoading" class="fancy-input__spinner" alt="" src="/assets/img/spinner.svg">
             </button>
           </div>

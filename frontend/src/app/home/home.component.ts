@@ -20,12 +20,24 @@ interface PreparedMessage extends Message {
 export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('searchInput') searchInput!: ElementRef;
   @ViewChild('chatContainer') chatContainer!: ElementRef;
+  @ViewChild('audioPlayer') audioPlayer!: ElementRef;
 
   message = new FormControl<string>('');
   threadId!: string;
   isLoading = true;
   voiceBase = environment.rootApiUrl + '/voice?text=';
   audioOn = false;
+  audioLoading = false;
+  playBgMusic = true;
+  currentTrackIndex = 0;
+  playlist = [
+    '/assets/audio/Eternity\'sEnd.mp3',
+    '/assets/audio/Elders\' Hearth.mp3',
+    '/assets/audio/Gallows\' End.mp3',
+    '/assets/audio/Lion\'s Pride.mp3',
+    '/assets/audio/Pig and Whistle.mp3',
+    '/assets/audio/Stonefire.mp3',
+  ];
 
 
   constructor(private route: ActivatedRoute,
@@ -49,6 +61,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.searchInput.nativeElement.focus();
     this.searchInput.nativeElement.scrollIntoView()
+  }
+
+  playNextTrack() {
+    this.currentTrackIndex++;
+    if (this.currentTrackIndex >= this.playlist.length) {
+      this.currentTrackIndex = 0;
+    }
+    let audio = this.audioPlayer.nativeElement;
+    audio.load();
+    audio.play();
   }
 
   sendMessage(text: string | null) {
@@ -95,6 +117,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
       })
       this.message.setValue("Let's start now!");
       this.isLoading = false;
+    }, (e) => {
+      this.isLoading = false;
+      this.messages.push({
+        role: 'assistant',
+        html: "Sorry, we couldn't answer this. Refresh the page and try again.",
+        text: "Sorry, we couldn't answer this. Refresh the page and try again.",
+        type: 'text',
+      })
     });
   }
 
